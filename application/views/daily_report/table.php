@@ -102,11 +102,10 @@
 								<div class="panel-body">
 									<label for="projectList">Daftar project:</label>
 									<select id="project_id" class="form-control" name="project_id" style="margin-bottom: 15px">
-										<option value="-">-Pilih project-</option>
-										<option value="SIMAR">SIMAR</option>
-										<option value="CAATS">CAATS</option>
-										<option value="SEFIN">SEFIN</option>
-										<option value="MITRA">MITRA</option>
+										<option selected="selected" value="-">-Pilih project-</option>
+										<?php foreach($projectList->result() as $r): ?>
+											<option value=<?php echo $r->id ?> ><?php echo $r->project_name ?></option>
+										<?php endforeach ?>
 									</select>
 								</div>
 

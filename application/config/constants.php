@@ -109,6 +109,7 @@ define('TB_PROBLEM_TYPE','rfm_new_problem_type');
 define('TB_REQUEST_TYPE','rfm_new_request_type');
 define('TB_SYS_PESAN','sys_pesan');
 define('TB_DAILY_ACTIVITY', 'daily_activity');
+define('TB_PROJECT', 'project');
 
 define('STT_ON_QUEUE','ON QUEUE');
 define('STT_VALIDATED','VALIDATED');

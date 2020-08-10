@@ -25,6 +25,14 @@ class dailyreport_controller extends ci_controller{
             );
 
             $data['rfmList'] = $this->rfm_model->get_crud($array_crud);
+			
+			$array_crud = array(
+                'select' => '*',
+                'table' => TB_PROJECT
+            );
+
+            $data['projectList'] = $this->daily_report_model->get_crud($array_crud);
+			
             $this->template->load('template','daily_report/table', $data);
         }else {
             $this->load->view('login/form_login');
