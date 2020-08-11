@@ -422,7 +422,7 @@ class Rfm_controller extends CI_Controller {
             $data['readonly'] = "readonly";
             $data['onclick'] = "set_app_request()";
             $data['btnText'] = "Approve";
-            $data['btn_update'] = '';
+            $data['btn_update'] = null;
         }
         
         if($SESSION_USER_ID === $row->assign_to)
@@ -849,7 +849,7 @@ class Rfm_controller extends CI_Controller {
                         echo json_encode($data);
                         die();
                     }else {
-                        if(trim($name)!='') {
+                        if(trim($name)!=null) {
                             $explode_name = explode(".", $name);
                             $random_name = round(microtime(true)).'.'.end($explode_name);
                             $new_name = md5(date('YmdHis'))."-".$no++."-".$random_name;
@@ -863,7 +863,7 @@ class Rfm_controller extends CI_Controller {
                             $insert_attachment = $this->db->insert(TB_ATTACHMENT, $array_insert);
 
                             if($insert_attachment) {
-                                move_uploaded_file($tmp, $path.''.$new_name);
+                                move_uploaded_file($tmp, $path.null.$new_name);
                             }else {
                                 $isValid = 0;
                                 $isPesan = "<div class='alert alert-danger'>Attachment gagal terkirim, tidak Terhubung Database.</div>";
@@ -894,7 +894,7 @@ class Rfm_controller extends CI_Controller {
                         'pesan'       => $subject,
                         'via_android' => 1
                     );
-                    $this->db->insert(TB_SYS_PESAN, $arr);
+                    // $this->db->insert(TB_SYS_PESAN, $arr);
                 }
                 
                 $isValid = 1;
@@ -929,6 +929,7 @@ class Rfm_controller extends CI_Controller {
 
     public function set_post_request()
     {
+        
         $SESSION_USER_ID = $this->session->userdata('USER_ID');
         $SESSION_USER_DIVISI = $this->session->userdata('USER_DIVISI');
         $SESSION_USER_JABATAN = $this->session->userdata('USER_JABATAN');
@@ -1305,7 +1306,7 @@ class Rfm_controller extends CI_Controller {
                         echo json_encode($data);
                         die();
                     }else {
-                        if(trim($name)!='') {
+                        if(trim($name)!=null) {
                             $explode_name = explode(".", $name);
                             $random_name = round(microtime(true)).'.'.end($explode_name);
                             $new_name = md5(date('YmdHis'))."-".$no++."-".$random_name;
@@ -1319,7 +1320,7 @@ class Rfm_controller extends CI_Controller {
                             $insert_attachment = $this->db->insert(TB_ATTACHMENT, $array_insert);
 
                             if($insert_attachment) {
-                                move_uploaded_file($tmp, $path.''.$new_name);
+                                move_uploaded_file($tmp, $path.null.$new_name);
                             }else {
                                 $isValid = 0;
                                 $isPesan = "<div class='alert alert-danger'>Attachment gagal terkirim, tidak Terhubung Database.</div>";
@@ -1599,7 +1600,7 @@ class Rfm_controller extends CI_Controller {
                     'pesan'       => $SESSION_USER_FULLNAME.' menyetujui dan mengatakan '.$notes,
                     'via_android' => 1
                 );
-                $this->db->insert(TB_SYS_PESAN, $arr);
+                // $this->db->insert(TB_SYS_PESAN, $arr);
             }
 
             $isValid = 1;
@@ -1660,7 +1661,7 @@ class Rfm_controller extends CI_Controller {
                 'pesan'       => "Kerjakan case tersebut sebelum $target_date",
                 'via_android' => 1
             );
-            $this->db->insert(TB_SYS_PESAN, $arr);
+            // $this->db->insert(TB_SYS_PESAN, $arr);
 
             $isValid = 1;
             $isPesan = "<div class='alert alert-success'>Berhasil Menyetujui RFM</div>";

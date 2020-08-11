@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            <textarea name="detail" class="form-control" placeholder="Detail. . ." rows="5" required><?php echo $rows->rfm_detail ?></textarea>
+            <textarea name="detail" class="form-control" style="resize: none" placeholder="Detail. . ." rows="5" required><?php echo $rows->rfm_detail ?></textarea>
         </div>
         <div class="form-group text-primary">
             <i class="far fa-clock"></i> <?php echo date('d-m-Y') ?>

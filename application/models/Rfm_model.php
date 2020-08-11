@@ -128,6 +128,7 @@ class Rfm_model extends ci_model{
 
     public function get_crud($data)
     {
+        $db = $this->load->database('ticket_support', TRUE);
         if (is_array($data)) {
             if(array_key_exists('select', $data)) {
                 $this->db->select($data['select']);

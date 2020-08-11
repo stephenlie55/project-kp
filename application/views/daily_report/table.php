@@ -13,12 +13,13 @@
                     <th>HARI</th>
                     <th>TANGGAL</th>
 					<th>PROJECT</th>
+					<th>TASK</th>
 					<th>RFM</th>
                     <th>STATUS</th>
                     <th>KETERANGAN</th>
                 </tr>
             </thead>
-			
+
 			<?php foreach($daily_activities->result() as $r): ?>
 				<tr>
 					<td><?php
@@ -60,10 +61,60 @@
 				?>
 				</td>
 					<td><?php echo date("d/m/Y",strtotime( $r->tanggal)) ?></td>
-					<td><?php echo ($r->project_id == null) ? "-" : $r->project_id ?></td>
-					<td><?php echo ($r->rfm_id == null) ? "-" : $r->rfm_id ?></td>
+					<td>
+						<?php 
+							// $data = json_encode($projectList->result());
+							// echo "<script>console.log($data);</script>";
+							$tableDataProjectName = null;
+							if (!empty($r->project_id))
+							{
+								foreach($projectList->result() as $row):
+									if ($r->project_id == $row->id) {
+										$tableDataProjectName = $row->project_name;
+										break;
+									}
+								endforeach;
+							}
+							else {
+								$tableDataProjectName = "-";
+							}
+							echo $tableDataProjectName;
+						?>
+					</td>
+					<td><?php $tableTaskName = null;
+							if (!empty($r->task_id))
+							{
+								foreach($taskList->result() as $row):
+									if ($r->task_id == $row->id) {
+										$tableTaskName = $row->task_name;
+										break;
+									}
+								endforeach;
+							}
+							else {
+								$tableTaskName = "-";
+							}
+							echo $tableTaskName;
+						?>
+					</td>
+					<td><?php $tableDataNoRFM = null;
+							if (!empty($r->rfm_id))
+							{
+								foreach($rfmList->result() as $row):
+									if ($r->rfm_id == $row->id) {
+										$tableDataNoRFM = $row->no_rfm;
+										break;
+									}
+								endforeach;
+							}
+							else {
+								$tableDataNoRFM = "-";
+							}
+							echo $tableDataNoRFM;
+						?>
+					</td>
 					<td><?php echo $r->status ?></td>
-					<td><?php echo ($r->keterangan == null) ? "-" : $r->keterangan ?></td>
+					<td><?php echo $r->keterangan ?></td>
 				</tr>
 			<?php endforeach ?>
          </table>
@@ -102,7 +153,7 @@
 								<div class="panel-body">
 									<label for="projectList">Daftar project:</label>
 									<select id="project_id" class="form-control" name="project_id" style="margin-bottom: 15px">
-										<option selected="selected" value="-">-Pilih project-</option>
+										<option selected="selected" value="">-Pilih project-</option>
 										<?php foreach($projectList->result() as $r): ?>
 											<option value=<?php echo $r->id ?> ><?php echo $r->project_name ?></option>
 										<?php endforeach ?>
@@ -111,15 +162,12 @@
 
 								<div class="panel-group" id="accordion" style="margin-top: 8px">
 									<div class="panel panel-default">
-										<div id="collapseProjectSubtask" class="panel-collapse collapse">
+										<div id="collapseTask" class="panel-collapse collapse">
 											<div class="panel-body">
 												<div class="form-group">
 													<label for="task_id">Task:</label>
 													<select id="task_id" class="form-control" name="task_id" style="margin-bottom: 15px">
-														<option value="Perbaiki tampilan dashboard">Perbaiki tampilan dashboard</option>
-														<option value="Tambah sub-menu">Tambah sub-menu</option>
-														<option value="Perbaiki grafik">Pernbaiki grafik</option>
-														<option value="Tambah user">Tambah user</option>
+														
 													</select>
 												</div>
 											</div>
@@ -134,7 +182,7 @@
 									<div class="form-group">
 										<label for="rfm_id">No. RFM:</label>
 										<select id="rfm_id" class="form-control" name="rfm_id" style="margin-bottom: 15px">
-											<option selected="selected">-Pilih RFM-</option>
+											<option selected="selected" value="">-Pilih RFM-</option>
 											<?php foreach($rfmList->result() as $r): ?>
 												<option value=<?php echo $r->id ?> ><?php echo $r->no_rfm ?></option>
 											<?php endforeach ?>
@@ -158,7 +206,7 @@
 
 					<div class="form-group">
 						<label for="keterangan">Keterangan:</label>
-						<textarea class="form-control" rows="3" id="keterangan" style="resize: none" name="keterangan"></textarea>
+						<input type="textarea" class="form-control" id="keterangan" style="resize: none" name="keterangan"></input>
 					</div>
 
 					<div class="form-group">
@@ -201,15 +249,24 @@
 			}
         });
 
-		$('#project').on('change', function (e) {
+		$('#project_id').on('change', function (e) {
 			// TODO: Get specific project available task
             var optionSelected = $("option:selected", this);
             var valueSelected = this.value;
+			$('#task_id').empty();
 
-            if (valueSelected !== "-") {
-                $('#collapseProjectSubtask').collapse('show');
+            if (valueSelected !== null) {
+				var arrayTask = <?php echo json_encode($taskList->result()) ?>;
+				$('#task_id').append('<option selected="selected" value="">-Pilih task-</option>')
+				arrayTask.forEach( (task) => {
+					if (task.project_id == valueSelected) {
+						$('#task_id').append(`<option value="${task.id}">${task.task_name}</option>`);
+					}
+				})
+				
+                $('#collapseTask').collapse('show');
             } else {
-                $('#collapseProjectSubtask').collapse('hide');
+                $('#collapseTask').collapse('hide');
             }
         });
     });

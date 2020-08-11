@@ -4,5 +4,5 @@
 </div>
 
 <div class="modal-body">
-    <textarea class="form-control" rows="5" readonly><?php echo $row ?></textarea>
+    <textarea class="form-control" rows="5" style="resize: none" readonly><?php echo $row ?></textarea>
 </div>

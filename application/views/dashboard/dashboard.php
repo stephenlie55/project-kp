@@ -1,4 +1,4 @@
-<div class="row mt-3">
+<!-- <div class="row mt-3">
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
@@ -188,7 +188,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="card mb-3" id="table" style="margin-top: 15px">
     <div class="card-header" >
@@ -204,7 +204,7 @@
                     <th>TANGGAL</th>
                     <th>WAKTU</th>
                     <th>PROJECT</th>
-                    <th>NON-PROJECT</th>
+                    <th>NO. RFM</th>
                     <th>STATUS</th>
                     <th>KETERANGAN</th>
                     <th>PIC</th>

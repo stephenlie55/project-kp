@@ -107,9 +107,10 @@ define('TB_ATTACHMENT','rfm_new_attachment');
 define('TB_COMMENT','rfm_new_comment');
 define('TB_PROBLEM_TYPE','rfm_new_problem_type');
 define('TB_REQUEST_TYPE','rfm_new_request_type');
-define('TB_SYS_PESAN','sys_pesan');
+define('TB_SYS_PESAN','dpm_online.sys_pesan');
 define('TB_DAILY_ACTIVITY', 'daily_activity');
 define('TB_PROJECT', 'project');
+define('TB_TASK', 'task');
 
 define('STT_ON_QUEUE','ON QUEUE');
 define('STT_VALIDATED','VALIDATED');

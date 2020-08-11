@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            <textarea name="detail" class="form-control" placeholder="Detail. . ." rows="5" required <?php echo $readonly ?>><?php echo $rows->rfm_detail ?></textarea>
+            <textarea name="detail" class="form-control" style="resize: none" placeholder="Detail. . ." rows="5" required <?php echo $readonly ?>><?php echo $rows->rfm_detail ?></textarea>
         </div>
         <div class="form-group text-primary">
             <i class="far fa-clock"></i> <?php echo date('d-m-Y') ?>
@@ -89,26 +89,26 @@
         <?php if(!empty($rows->approve_notes)): ?>
         <div class="form-group">
             <label>Notes : <?php echo $notes_name_approve->nama." | ".$rows->approve_date ?></label>
-            <textarea placeholder="Notes..." rows="2" class="form-control" readonly><?php echo $rows->approve_notes ?></textarea>
+            <textarea placeholder="Notes..." rows="2" class="form-control" style="resize: none" readonly><?php echo $rows->approve_notes ?></textarea>
         </div>
         <?php endif ?>
         
         <?php if(!empty($rows->receive_notes)): ?>
         <div class="form-group">
             <label>Notes : <?php echo $notes_name_receive->nama." | ".$rows->receive_date ?></label>
-            <textarea placeholder="Notes..." rows="2" class="form-control" readonly><?php echo $rows->receive_notes ?></textarea>
+            <textarea placeholder="Notes..." rows="2" class="form-control" style="resize: none" readonly><?php echo $rows->receive_notes ?></textarea>
         </div>
         <?php endif ?>
         
         <div class="form-group">
             <label>Tulis Notes :</label>
-            <textarea name="notes" placeholder="Notes..." rows="2" class="form-control"></textarea>
+            <textarea name="notes" placeholder="Notes..." rows="2"  style="resize: none" class="form-control"></textarea>
         </div>
         
         <?php if($rows->assign_to == $this->session->userdata('USER_ID')): ?>
         <div class="form-group">
             <label>Cara penyelesaian :</label>
-            <textarea name="penyelesaian" placeholder="Cara penyelesaian case tersebut..." rows="2" class="form-control"></textarea>
+            <textarea name="penyelesaian" style="resize: none" placeholder="Cara penyelesaian case tersebut..." rows="2" class="form-control"></textarea>
         </div>
         <?php endif ?>
 

@@ -24,7 +24,8 @@ class dailyreport_controller extends ci_controller{
                 // )
             );
 
-            $data['rfmList'] = $this->rfm_model->get_crud($array_crud);
+            // $data['rfmList'] = $this->rfm_model->get_crud($array_crud);
+            $data['rfmList'] = $this->daily_report_model->get_crud($array_crud);
 			
 			$array_crud = array(
                 'select' => '*',
@@ -32,6 +33,13 @@ class dailyreport_controller extends ci_controller{
             );
 
             $data['projectList'] = $this->daily_report_model->get_crud($array_crud);
+
+            $array_crud = array(
+                'select' => '*',
+                'table' => TB_TASK
+            );
+
+            $data['taskList'] = $this->daily_report_model->get_crud($array_crud);
 			
             $this->template->load('template','daily_report/table', $data);
         }else {
@@ -45,7 +53,7 @@ class dailyreport_controller extends ci_controller{
         $array_crud = array(
             'table' => TB_DAILY_ACTIVITY,
             'where' => array(
-            'user_id' => $this->session->userdata('USER_FULLNAME')
+            'user_id' => $this->session->userdata('USER_ID')
             ),
             'order_by' => "tanggal DESC"
         );
@@ -63,13 +71,25 @@ class dailyreport_controller extends ci_controller{
 		
         $date_now = date('Y-m-d');
         $user_id = $this->session->userdata('USER_ID');
-        $project_id = $this->input->post('project_id');
-        $task_id = $this->input->post('task_id');
-        $rfm_id = $this->input->post('rfm_id');
+        $project_id = null;
+        $task_id = null;
+        $rfm_id = null;
         $status = $this->input->post('status');
         $keterangan = $this->input->post('keterangan');
+
+        if ($this->input->post('project_id') !== "") {
+            $project_id = $this->input->post('project_id');
+        }
+
+        if ($this->input->post('task_id') !== "") {
+            $task_id = $this->input->post('task_id');
+        }
+
+        if ($this->input->post('rfm_id') !== "") {
+            $rfm_id = $this->input->post('rfm_id');
+        }
         
-        if(empty($project_id) && empty($rfm_id) && empty($keterangan) ) {
+        if(empty($project_id) && empty($rfm_id)  && empty($keterangan) ) {
             $isValid = 0;
             $isPesan = "<div class='alert alert-danger'>Task Harus Diisi !!!</div>";
         }elseif(empty($status)) {
@@ -86,15 +106,6 @@ class dailyreport_controller extends ci_controller{
             );
 
             $sql = $this->daily_report_model->get_crud($array_crud);
-            
-            if($sql->num_rows() !== 0) {
-                $isValid = 0;
-                $isPesan = "<div class='alert alert-danger'>GAGAL !!! Anda telah menambahkan daily activity di jam ini</div>";
-                        
-                $data = array('isValid' => $isValid, 'isPesan' => $isPesan);
-                echo json_encode($data);
-                die();
-            }
 
             if (!empty($project_id)) {
                 $rfm_id = null;
@@ -134,20 +145,5 @@ class dailyreport_controller extends ci_controller{
         echo json_encode($data);
     }
 
-    // function status_enum ($table, $field)
-    // {
-    //     $query = "SHOW COLUMNS FROM" .$table. "LIKE '$field'";
-    //     $row = $this->query("SHOW COLUMNS FROM ". $table. "LIKE $field'")->row()->Type;
-    //     $regex = "/'(.*?)'/";
-    //     preg_match_all($regex, $row, $enum_array);
-    //     $enum_fields = $enum_array[1];
-    //     foreach($enum_fields as $key=>$value)
-    //     {
-    //         $enums[$value]=$value;
-    //     }
-    //     return $enums;
-    // }
-
-    
 
 }

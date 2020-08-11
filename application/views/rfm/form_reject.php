@@ -7,7 +7,7 @@
     <form id="frm-reject" method="post">
         <div class="form-group">
         <input type="hidden" name="id_rfm" value="<?php echo $rows->id ?>">
-            <textarea name="notes" class="form-control" placeholder="Notes..."></textarea>
+            <textarea name="notes" class="form-control" style="resize: none" placeholder="Notes..."></textarea>
         </div>
         <div class="row">
             <div class="col-md-6">
